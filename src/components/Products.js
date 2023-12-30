@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { addItem, delItem } from "../redux/action/index";
 import { addToCart } from "../redux/slices/addToCartSlice";
 // import DATA from "../Data";
 

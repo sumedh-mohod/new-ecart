@@ -1,9 +1,10 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useCallback } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { logout } from "../redux/auth/auth";
 
 const Header = () => {
-
+const navigate = useNavigate();
   const { cart } = useSelector((state) => state.cart);
   console.log("cart", cart);
   const getTotalQuantity = () => {
@@ -13,6 +14,13 @@ const Header = () => {
     });
     return total;
   };
+
+  const handleLogout = useCallback(()=>{
+    logout();
+    setTimeout(() => {
+      navigate("/logout")
+    }, 500);
+  })
 
   return (
     <>

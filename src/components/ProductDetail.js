@@ -1,24 +1,16 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router";
-import { useState, useEffect } from "react";
-// import DATA from "../Data";
 import { useDispatch } from "react-redux";
-import { addItem, delItem } from "../redux/action/index";
+import { removeItem, addToCart } from "../redux/slices/addToCartSlice";
 
-const ProductDetail = () => {
+const ProductDetail = (item) => {
   const [cartBtn, setCartBtn] = useState("Add to Cart");
-
-  const [data, setData] = useState([]);
+  const [data, setData] = useState(null); // Use null as the initial state
 
   const proid = useParams();
-  // const proDetail = DATA.filter((x) => x.id == proid.id);
-  const proDetail = data.filter((x) => x.id == proid.id);
-  const product = proDetail[0];
-  console.log(data);
-  console.log(product);
 
   useEffect(() => {
-    fetch(`https://fakestoreapi.com/products/`)
+    fetch(`https://fakestoreapi.com/products/${proid.id}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Network response was not ok");
@@ -28,16 +20,18 @@ const ProductDetail = () => {
       .then((result) => {
         setData(result);
       });
-  }, []);
+  }, [proid.id]);
+
+  console.log("dataaaaaaaaaaaaaaaaaaaaaaaaaaaa", data);
 
   const dispatch = useDispatch();
 
-  const handleCart = (product) => {
+  const handleCart = (item) => {
     if (cartBtn === "Add to Cart") {
-      dispatch(addItem(product));
+      dispatch(addToCart(item));
       setCartBtn("Remove from Cart");
-    } else {
-      dispatch(delItem(product));
+    } else if (item) {
+      dispatch(removeItem(item.id));
       setCartBtn("Add to Cart");
     }
   };
@@ -45,23 +39,25 @@ const ProductDetail = () => {
   return (
     <>
       <div className="container my-5 py-3">
-        <div className="row">
-          <div className="col-md-6 d-flex justify-content-center mx-auto product">
-            <img src={data.image} alt={data.title} height="400px" />
+        {data && (
+          <div className="row">
+            <div className="col-md-6 d-flex justify-content-center mx-auto product">
+              <img src={data?.image} alt={data?.title} height="400px" />
+            </div>
+            <div className="col-md-6 d-flex flex-column justify-content-center">
+              <h1 className="display-5 fw-bold">{data?.title}</h1>
+              <hr />
+              <h2 className="my-4">${data?.price}</h2>
+              <p className="lead">{data?.description}</p>
+              <button
+                onClick={() => handleCart(data)}
+                className="btn btn-outline-dark my-5"
+              >
+                {cartBtn}
+              </button>
+            </div>
           </div>
-          <div className="col-md-6 d-flex flex-column justify-content-center">
-            <h1 className="display-5 fw-bold">{data.title}</h1>
-            <hr />
-            <h2 className="my-4">${data.price}</h2>
-            <p className="lead">{data.desc}</p>
-            <button
-              onClick={() => handleCart(product)}
-              className="btn btn-outline-dark my-5"
-            >
-              {cartBtn}
-            </button>
-          </div>
-        </div>
+        )}
       </div>
     </>
   );

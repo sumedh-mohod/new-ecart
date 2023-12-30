@@ -1,8 +1,16 @@
 import React from "react";
 import Products from "./Products";
 import { useSelector } from "react-redux";
+import { Navigate } from "react-router-dom";
+import authHeader from "../redux/auth/authHeader";
 
 const Home = () => {
+  let getToken = authHeader();
+  if (getToken === null) {
+    <Navigate to="/login" />;
+  } else {
+    return <Navigate to="/home" />;
+  }
 
   return (
     <div className="hero">
