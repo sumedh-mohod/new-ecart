@@ -11,6 +11,7 @@ const Cart = () => {
   const { cart } = useSelector((state) => state.cart);
   console.log("state of cart items", cart);
   const dispatch = useDispatch();
+  const newdata = JSON.parse(localStorage.getItem("dataKey"));
 
   const cartItems = (cartItem) => {
     const itemPrice = cartItem.price * cartItem.quantity;
@@ -81,9 +82,9 @@ const Cart = () => {
 
   return (
     <>
-      {cart?.length === 0 && emptyCart()}
-      {cart?.length !== 0 && cart?.map(cartItems)}
-      {cart?.length !== 0 && button()}
+      {newdata?.length === 0 && emptyCart()}
+      {newdata?.length !== 0 && newdata?.map(cartItems)}
+      {newdata?.length !== 0 && button()}
     </>
   );
 };

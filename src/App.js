@@ -16,21 +16,21 @@ function App() {
     <>
       <Header />
       <Routes>
-        <Route path="/" element={<Protected />}>
-          <Route exact path="/home" element={<Home />} />
-        </Route>
-        <Route path="/" element={<Protected />}>
-          <Route exact path="/products" element={<Products />} />
-        </Route>
-        <Route path="/" element={<Protected />}>
-          <Route exact path="/products/:id" element={<ProductDetail />} />
-        </Route>
-        <Route path="/" element={<Protected />}>
-          <Route exact path="/cart" element={<Cart />} />
-        </Route>
-        <Route path="/" element={<Protected />}>
-          <Route exact path="/checkout" element={<Checkout />} />
-        </Route>
+        {/* <Route path="/" element={<Protected />}> */}
+        <Route exact path="/home" element={<Home />} />
+        {/* </Route> */}
+        {/* <Route path="/" element={<Protected />}> */}
+        <Route exact path="/products" element={<Products />} />
+        {/* </Route> */}
+        {/* <Route path="/" element={<Protected />}> */}
+        <Route exact path="/products/:id" element={<ProductDetail />} />
+        {/* </Route> */}
+        {/* <Route path="/" element={<Protected />}> */}
+        <Route exact path="/cart" element={<Cart />} />
+        {/* </Route> */}
+        {/* <Route path="/" element={<Protected />}> */}
+        <Route exact path="/checkout" element={<Checkout />} />
+        {/* </Route> */}
         <Route exact path="/about" element={<About />} />
         <Route exact path="/register" element={<SignUp />} />
         <Route exact path="/login" element={<Login />} />
